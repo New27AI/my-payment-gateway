@@ -29,9 +29,12 @@ ALLOWED_HOSTS = [
     '52.203.137.55',  # AWS
     '127.0.0.1',  # Localhost (IPv4)
     'localhost',  # Localhost
-    'ec2-52-203-137-55.compute-1.amazonaws.com' # Amazon web server
+    'ec2-52-203-137-55.compute-1.amazonaws.com', # Amazon web server
     'my-payment-gateway.onrender.com' # Your new Render site
 ]
+
+# This is the new line you need to add for Render's security
+CSRF_TRUSTED_ORIGINS = ['https://my-payment-gateway.onrender.com']
 
 # Application definition
 
