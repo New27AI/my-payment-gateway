@@ -3,20 +3,6 @@ from payapp.custom_exceptions import InsufficientBalanceException
 from payapp.utils import convert_currency
 from django.db import transaction
 from django.db import models
-from thrift_timestamp.client import ThriftTimestampClient
-
-
-class ThriftTimestampField(models.DateTimeField):
-    """Defines a custom field to store the current timestamp using a Thrift service."""
-
-    def pre_save(self, model_instance, add):
-        if add and not getattr(model_instance, self.attname):
-            client = ThriftTimestampClient()
-            timestamp = client.get_current_timestamp()
-            if timestamp is not None:
-                setattr(model_instance, self.attname, timestamp)
-
-        return super().pre_save(model_instance, add)
 
 
 class Account(models.Model):
@@ -98,7 +84,7 @@ class Transfer(models.Model):
         ('transfer', 'Transfer'),
     )
     type = models.CharField(max_length=10, choices=TRANSACTION_TYPE_CHOICES, default='transfer')
-    created_at = ThriftTimestampField()
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         """
