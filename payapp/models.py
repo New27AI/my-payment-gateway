@@ -36,7 +36,7 @@ class Account(models.Model):
         ('eur', 'EUR'),
     )
     currency = models.CharField(max_length=3, choices=CURRENCY_CHOICES, default='gbp')
-    created_at = ThriftTimestampField()
+    created_at = models.DateTimeField(auto_now_add=True)
     STATUS_CHOICES = (
         ('active', 'Active'),
         ('inactive', 'Inactive'),
@@ -160,7 +160,7 @@ class Request(models.Model):
                                  related_name='request_receiver')
     amount = models.DecimalField(max_digits=10, decimal_places=2,
                                  default=0.00)
-    created_at = ThriftTimestampField()
+    created_at = models.DateTimeField(auto_now_add=True)
     REQUEST_STATUS_CHOICES = (
         ('pending', 'Pending'),
         ('accepted', 'Accepted'),
@@ -261,7 +261,7 @@ class Notification(models.Model):
 
     notification_type = models.CharField(max_length=20, choices=NOTIFICATION_TYPE_CHOICES, default='payment_sent')
     message = models.CharField(max_length=255)
-    created_at = ThriftTimestampField()
+    created_at = models.DateTimeField(auto_now_add=True)
     read = models.BooleanField(default=False)
 
     def __str__(self):
