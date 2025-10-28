@@ -47,9 +47,8 @@ def home(request):
     :return:
     """
     # Gets the current timestamp for the dashboard
-    timestamp = ThriftTimestampClient().get_current_timestamp()
-    # Converts the timestamp to a datetime object
-    timestamp = datetime.strptime(timestamp, '%Y-%m-%d %H:%M:%S')
+    # Bypassed the broken Thrift server
+    timestamp = datetime.now()
 
     return render(request, 'payapp/home.html', {'timestamp': timestamp})
 
